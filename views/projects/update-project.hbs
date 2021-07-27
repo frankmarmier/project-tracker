@@ -1,1 +1,34 @@
 <h1>Update Project</h1>
+
+<form action="/project/{{_id}}/update" method="POST" >
+
+    <label for="title">
+    </label>
+    <input type="text" name="title" id="title" value="{{title}}">
+    <select multiple name="technologies" id="technologies" value="{{technologies}}">
+        {{#each technology}}
+        
+        
+        {{#if @index}}
+        <option selected value="{{this._id}}">{{this.name}}</option>
+        {{else}}
+        <option value="{{this._id}}">{{this.name}}</option>
+        {{/if}}
+        
+        {{/each}}
+    </select>
+    <select name="type" id="type" value="{{type}}">
+        <option value="social">social</option>
+        <option value="healthcare">healthcare</option>
+        <option value="other">other</option>
+    </select>
+    <textarea name="description" id="description" cols="30" rows="10" value="{{description}}"></textarea>
+    <input type="text" name="file" id="file" value="{{file}}">
+    <select name="contributors" id="contributors" value="{{contributors}}">
+            {{#each contributor}}
+        <option value="{{this._id}}">{{this.username}}</option>
+            {{/each}}
+    </select>
+    <input type="text" name="owner" id="owner" value="{{owner}}">
+    <button>Update Project</button>
+</form>

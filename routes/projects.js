@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-//const Project = require('../models/todo.txt')
-
+const Technology = require('../models/Technology')
+const User = require('../models/User')
 //GET
 
 router.get('/', (req, res, next) => {
@@ -9,7 +9,22 @@ router.get('/', (req, res, next) => {
 })
 
 router.get('/project/create', (req, res, next) => {
-    res.render('projects/project-create')
+    
+    User.find()
+        .then(userDocs => {
+        Technology.find()
+            .then(techDocs => {
+            res.render('projects/project-create', {
+                technology: techDocs,
+                contributor: userDocs
+                })
+            })
+            .catch(e => console.log(e))
+        })
+        .catch(e => console.log(e))
+    
+    
+    
 })
 
 router.get('/project/:id', async (req, res, next) => {
@@ -28,7 +43,17 @@ router.get('/project/:id/update', async (req, res, next) => {
     try{
         const projectId = req.params.id
         const myProject = await Project.findById(projectId)
-        res.render('projects/update-project', {myProject})
+        const technologies = await Technology.find()
+        const isIncluded = []
+        technologies.forEach(tech => {
+            if (myProject.technologies.includes(tech)) {
+                isIncluded.push(true)
+            } else {
+                isIncluded.push(false)
+            }
+        })
+
+        res.render('projects/update-project', {myProject, technologies, isIncluded})
     }
     catch(err){
         console.log("Couldn't get the project")
