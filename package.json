@@ -4,7 +4,10 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "run": "nodemon ./bin/wwww -e hbs,js"
+    "run": "nodemon ./bin/wwww -e hbs,js",
+    "seed:project": "node ./seeds/project.*",
+    "seed:technology": "node ./seeds/technology.*",
+    "seed:user": "node ./seeds/user.seed.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
