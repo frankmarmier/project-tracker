@@ -1,9 +1,20 @@
 <h1>{{myProject.title}}</h1>
 <p>{{myProject.description}}</p>
 <ul>
-    {{#each myProject.technology}}
-        <li>{{this}}</li>
-    {{/each}}
+  {{#each myProject.technology}}
+    <li>{{this}}</li>
+  {{/each}}
 </ul>
-<a href={{myProject.link}} class="link">View the project</a>    <br>
-<a href="/projects/project/{{myProject._id}}/update">Update this project</a> 
+
+<p>Contributors:</p>
+<ul>
+
+  {{#each myProject.contributors}}
+    <li>{{this.userName}}</li>
+  {{/each}}
+
+</ul>
+
+<a href={{myProject.link}} class="link">View the project</a>
+<br />
+<a href="/projects/{{myProject._id}}/update">Update this project</a>

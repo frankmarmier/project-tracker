@@ -1,29 +1,44 @@
 <h1>Create Project</h1>
 
-<form action="/project/create" method="POST" >
+<form action="/projects/create" method="POST">
+  <div>
 
     <label for="title">
-
+      title
     </label>
-    <input type="text" name="title" id="title">
-    <select multiple name="technologies" id="technologies">
-        {{#each technology}}
-        <option value="{{this._id}}">{{this.name}}</option>
-        {{/each}}
-    </select>
+    <input type="text" name="title" id="title" />
+  </div>
+  <label for="technologies">Techno</label>
+  <select multiple name="technologies" id="technologies">
+    {{#each technology}}
+      <option value="{{this._id}}">{{this.name}}</option>
+    {{/each}}
+  </select>
+  <div>
+    <label for="type">Type</label>
     <select name="type" id="type">
-        <option value="social">social</option>
-        <option value="healthcare">healthcare</option>
-        <option value="other">other</option>
+      <option value="social">social</option>
+      <option value="healthcare">healthcare</option>
+      <option value="other">other</option>
     </select>
-    <textarea name="description" id="description" cols="30" rows="10"></textarea>
-    <input type="text" name="file" id="file">
-    <select name="contributors" id="contributors">
-            {{#each contributor}}
-        <option value="{{this._id}}">{{this.username}}</option>
-            {{/each}}
-    </select>
-    <input type="text" name="owner" id="owner">
-    <button>Submit Project</button>
-</form>
+  </div>
+  <label for="description">Description</label>
+  <textarea name="description" id="description" cols="30" rows="10"></textarea>
 
+  <div>
+
+    <label for="file">File</label>
+    <input type="text" name="file" id="file" />
+  </div>
+  <label for="contributors">Contributors</label>
+  <select multiple name="contributors" id="contributors">
+    {{#each contributor}}
+      <option value="{{this._id}}">{{this.userName}}</option>
+    {{/each}}
+  </select>
+  {{! <div>
+    <label for="owner">Owner</label>
+    <input type="text" name="owner" id="owner" />
+  </div> }}
+  <button>Submit Project</button>
+</form>

@@ -1,15 +1,17 @@
 <div class="projects">
-    <h1>All the projects</h1>
-    <a href="/projects/project/create">Create new project</a>
+  <h1>All the projects</h1>
+  <a href="/projects/project/create">Create new project</a>
 
-    <ul>
-        {{#each projects}}
-            <li>
-                <h2>{{this.title}}</h2>
-                <p class="description">{{this.description}}</p>
-                <a href='/projects/project/{{this.id}}' class="link">View the project caracteristics</a> <br>
-                <a href="/projects/project/{{myProject._id}}/delete">Delete this project</a>
-            </li>
-        {{/each}}
-    </ul>
+  <ul>
+    {{#each projects}}
+      <li>
+        <h2>{{this.title}}</h2>
+        <p class="description">{{this.description}}</p>
+        <a href="/projects/{{this.id}}" class="link">View the project
+          caracteristics</a>
+        <br />
+        <a href="/projects/{{myProject._id}}/delete">Delete this project</a>
+      </li>
+    {{/each}}
+  </ul>
 </div>
