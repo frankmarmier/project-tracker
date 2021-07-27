@@ -6,5 +6,8 @@
     <img src="{{this.logo}}" alt="logo">
     <li>{{this.name}}</li>
     <li>{{this.type}}</li>
+    <form method="POST" action="/technology/{{this._id}}/delete">
+    <button>Delete</button>
+    </form>
 {{/each}}
 </ul>
