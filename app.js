@@ -11,9 +11,13 @@ const projectsRouter = require("./routes/projects");
 const signinRouter = require("./routes/signin");
 const signupRouter = require("./routes/signup");
 const profileRouter = require("./routes/profile");
+<<<<<<< HEAD
 
 const technologyRouter = require("./routes/technology");
 
+=======
+require('./config/db')
+>>>>>>> 979710494967ff9acd62b57d146b3295491c6dea
 const app = express();
 
 // view engine setup
