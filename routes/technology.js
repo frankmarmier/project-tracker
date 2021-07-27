@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const technology = require("../models/technology.js");
+const technology = require("../models/Technology.js");
 
 
 router.get ('/', (req, res, next) =>{
