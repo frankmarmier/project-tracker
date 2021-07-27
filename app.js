@@ -11,7 +11,11 @@ const projectsRouter = require("./routes/projects");
 const signinRouter = require("./routes/signin");
 const signupRouter = require("./routes/signup");
 const profileRouter = require("./routes/profile");
+
+const technologyRouter = require("./routes/technology");
+
 require('./config/db')
+
 const app = express();
 
 // view engine setup
@@ -30,6 +34,8 @@ app.use("/projects", projectsRouter);
 app.use("/signin", signinRouter);
 app.use("/signup", signupRouter);
 app.use("/profile", profileRouter);
+
+app.use("/technology", technologyRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

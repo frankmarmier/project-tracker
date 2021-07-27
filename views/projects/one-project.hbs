@@ -1,1 +1,9 @@
-<h1>One Project</h1>
+<h1>{{myProject.title}}</h1>
+<p>{{myProject.description}}</p>
+<ul>
+    {{#each myProject.technology}}
+        <li>{{this}}</li>
+    {{/each}}
+</ul>
+<a href={{myProject.link}} class="link">View the project</a>    <br>
+<a href="/projects/project/{{myProject._id}}/update">Update this project</a> 
