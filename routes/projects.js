@@ -55,20 +55,30 @@ router.get("/:id/update", async (req, res, next) => {
     );
 
     const technologies = await Technology.find();
-    const isIncluded = [];
+    // const isIncluded = [];
 
-    technologies.forEach((tech) => {
-      if (myProject.technology.includes(tech)) {
-        isIncluded.push(true);
-      } else {
-        isIncluded.push(false);
+    const myTechnosStringified = myProject.technology.map((t) => t.toString());
+
+    const changed = technologies.map((technology) => {
+      const object = technology.toObject();
+      const strId = technology._id.toString();
+      if (myTechnosStringified.includes(strId)) {
+        object.selected = true;
       }
+      return object;
     });
+
+    // technologies.forEach((tech) => {
+    //   if (myProject.technology.includes(tech)) {
+    //     isIncluded.push(true);
+    //   } else {
+    //     isIncluded.push(false);
+    //   }
+    // });
 
     res.render("projects/update-project", {
       myProject,
-      technologies,
-      isIncluded,
+      technologies: changed,
       users,
     });
   } catch (err) {
@@ -93,6 +103,7 @@ router.get("/:id/delete", async (req, res, next) => {
 router.post("/create", async (req, res, next) => {
   try {
     const data = req.body;
+    console.log(data);
     await Project.create(data);
     res.redirect("/projects");
   } catch (err) {

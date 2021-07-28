@@ -1,4 +1,6 @@
 require("dotenv/config");
+require("./config/db");
+require("./helpers/hbsHelpers");
 const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
@@ -13,7 +15,6 @@ const signupRouter = require("./routes/signup");
 const profileRouter = require("./routes/profile");
 const technologyRouter = require("./routes/technology");
 
-require('./config/db')
 const app = express();
 
 // view engine setup

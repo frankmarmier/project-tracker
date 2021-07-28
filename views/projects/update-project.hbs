@@ -7,15 +7,23 @@
   <input type="text" name="title" id="title" value="{{myProject.title}}" />
   <select multiple name="technologies" id="technologies">
     {{#each technologies}}
-      {{#if @index}}
-        <option selected value="{{this._id}}">{{this.name}}</option>
-      {{else}}
-        <option value="{{this._id}}">{{this.name}}</option>
-      {{/if}}
 
+      {{#includesId this._id ../myProject.technology}}
+         <option selected value="{{this._id}}">{{this.name}}</option>
+
+          {{else}}
+        <option value="{{this._id}}">{{this.name}}</option>
+
+      {{/includesId}}
+      
     {{/each}}
   </select>
+
+ 
   <select name="type" id="type">
+
+
+
 
     <option value="social">social</option>
     <option value="social">social</option>
