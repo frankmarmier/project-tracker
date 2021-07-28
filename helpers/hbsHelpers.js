@@ -90,3 +90,15 @@ hbs.registerHelper("compare", function (value1, operator, value2, options) {
     return options.inverse(this);
   }
 });
+
+hbs.registerHelper("ternary", (condition, value1, value2) => {
+  /**     In your templates
+   *     {{ternary false "yay" "nay"}}
+   *
+   *    outputs => nay
+   *
+   *   {{ternary true "yay" "nay"}}
+   *    outputs => nay
+   */
+  return condition ? value1 : value2;
+});
