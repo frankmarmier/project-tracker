@@ -1,20 +1,29 @@
 <h1>{{myProject.title}}</h1>
 <p>{{myProject.description}}</p>
+
+<h2>Technologies used:</h2>
+<hr />
 <ul>
   {{#each myProject.technology}}
-    <li>{{this}}</li>
+    <li>{{this.name}}</li>
   {{/each}}
 </ul>
 
-<p>Contributors:</p>
+<h2>Contributors:</h2>
+<hr />
 <ul>
 
   {{#each myProject.contributors}}
-    <li>{{this.userName}}</li>
+    <li>
+      <a href="/users/profile/{{this._id}}">{{this.userName}}</a>
+    </li>
   {{/each}}
-
 </ul>
 
 <a href={{myProject.link}} class="link">View the project</a>
 <br />
 <a href="/projects/{{myProject._id}}/update">Update this project</a>
+
+{{#if isOwner}}
+  <button>Delete</button>
+{{/if}}

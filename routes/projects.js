@@ -22,9 +22,13 @@ router.get("/create", (req, res, next) => {
     .then((userDocs) => {
       Technology.find()
         .then((techDocs) => {
+          const contributors = userDocs.filter((user) => {
+            return user._id.toString() !== req.session.currentUser._id;
+          });
+
           res.render("projects/project-create", {
             technology: techDocs,
-            contributor: userDocs,
+            contributor: contributors,
           });
         })
         .catch((e) => console.log(e));
@@ -36,10 +40,21 @@ router.get("/:id", async (req, res, next) => {
   try {
     const projectId = req.params.id;
     const myProject = await Project.findById(projectId).populate(
-      "contributors"
+      "contributors technology"
     );
-    console.log(myProject);
-    res.render("projects/one-project", { myProject });
+
+    let isOwner = false;
+
+    if (req.session.currentUser) {
+      if (req.session.currentUser._id === myProject.owner.toString()) {
+        isOwner = true;
+      }
+    }
+
+    res.render("projects/one-project", {
+      myProject,
+      isOwner: isOwner,
+    });
   } catch (err) {
     console.log("Couldn't get the project");
     next(err);
@@ -103,7 +118,7 @@ router.get("/:id/delete", async (req, res, next) => {
 router.post("/create", async (req, res, next) => {
   try {
     const data = req.body;
-    console.log(data);
+    data.owner = req.session.currentUser._id;
     await Project.create(data);
     res.redirect("/projects");
   } catch (err) {

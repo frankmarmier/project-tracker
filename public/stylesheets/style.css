@@ -1,8 +1,44 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  font-size: 16px;
+  font-family: "Roboto", sans-serif;
 }
 
 a {
-  color: #00B7FF;
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  background-color: black;
+  color: white;
+  padding: 0 40px;
+}
+
+.nav-main .nav-list {
+  display: flex;
+  list-style-type: none;
+}
+
+.nav-main .nav-list .nav-item:not(:last-child) {
+  margin-right: 20px;
+}
+
+.nav-main .nav-list .nav-item:hover {
+  color: dodgerblue;
+}
+
+.main-content {
+  padding: 40px 60px;
 }

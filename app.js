@@ -10,15 +10,16 @@ const logger = require("morgan");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const projectsRouter = require("./routes/projects");
-const signinRouter = require("./routes/signin");
-const signupRouter = require("./routes/signup");
-const profileRouter = require("./routes/profile");
 const technologyRouter = require("./routes/technology");
-
+const hbs = require("hbs");
+const User = require("./models/User");
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
+hbs.registerPartials(path.join(__dirname, "/views/partials"));
 
 /**
  * Declare hbs as default engine, meaning that when you render your views
@@ -57,6 +58,35 @@ app.use(cookieParser());
  */
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use(
+  session({
+    saveUninitialized: true,
+    resave: true,
+    secret: process.env.SESSION_SECRET,
+    store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
+    // cookie: { secure: true },
+  })
+);
+
+app.use((req, res, next) => {
+  if (req.session.currentUser) {
+    User.findById(req.session.currentUser._id)
+      .then((userFromDb) => {
+        res.locals.currentUser = userFromDb;
+        res.locals.isLoggedIn = true;
+        next();
+        // res.locals.isAdmin = userFromDB.isAdmin
+      })
+      .catch((error) => {
+        next(error);
+      });
+  } else {
+    res.locals.currentUser = undefined;
+    res.locals.isLoggedIn = false;
+    next();
+  }
+});
+
 /**
  * ROUTES
  * app.use("/prefix",router); => All routes in the router are PREFIXED with "/prefix"
@@ -64,11 +94,9 @@ app.use(express.static(path.join(__dirname, "public")));
  */
 
 app.use("/", indexRouter);
+app.use("/auth", require("./routes/auth"));
 app.use("/users", usersRouter);
 app.use("/projects", projectsRouter);
-app.use("/signin", signinRouter);
-app.use("/signup", signupRouter);
-app.use("/profile", profileRouter);
 app.use("/technology", technologyRouter);
 
 /** ERROR HANDLING MIDDLEWARES
